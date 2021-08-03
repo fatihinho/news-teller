@@ -2,7 +2,7 @@
 
 ## Spring & MongoDB
 
-![](mongodb-spring.png)
+![](spring-mongodb.png)
 
 ### Talimatlar
 
