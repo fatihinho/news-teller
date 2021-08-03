@@ -61,7 +61,7 @@ public class NewController {
     }
 
     @PostMapping("/news")
-    public ResponseEntity<NewDto> createNew(@RequestParam CreateNewRequest createNewRequest) {
+    public ResponseEntity<NewDto> createNew(@RequestBody CreateNewRequest createNewRequest) {
         try {
             return new ResponseEntity<>(newService.createNew(createNewRequest), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class NewController {
 
     @PutMapping("/news/{id}")
     public ResponseEntity<NewDto> updateNewById(@PathVariable String id,
-                                                @RequestParam UpdateNewRequest updateNewRequest) {
+                                                @RequestBody UpdateNewRequest updateNewRequest) {
         try {
             return new ResponseEntity<>(newService.updateNewById(id, updateNewRequest), HttpStatus.OK);
         } catch (Exception e) {
