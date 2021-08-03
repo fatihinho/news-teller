@@ -4,6 +4,7 @@ import com.fcinar.newsteller.dto.CreateNewRequest;
 import com.fcinar.newsteller.dto.NewDto;
 import com.fcinar.newsteller.dto.UpdateNewRequest;
 import com.fcinar.newsteller.dto.converter.NewDtoConverter;
+import com.fcinar.newsteller.exception.NewNotFoundException;
 import com.fcinar.newsteller.model.New;
 import com.fcinar.newsteller.repository.INewRepository;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +23,11 @@ public class NewService {
         this.newDtoConverter = newDtoConverter;
     }
 
+    protected New findNewById(String id) {
+        return newRepository.findById(id)
+                .orElseThrow(() -> new NewNotFoundException("New could not found by id: " + id));
+    }
+
     public List<NewDto> getAllNews() {
         List<New> news = newRepository.findAll();
         return news.stream().map(newDtoConverter::convert).collect(Collectors.toList());
@@ -38,7 +44,7 @@ public class NewService {
     }
 
     public NewDto getNewById(String id) {
-        New newObj = newRepository.findById(id).orElseThrow();
+        New newObj = findNewById(id);
         return newDtoConverter.convert(newObj);
     }
 
@@ -50,7 +56,7 @@ public class NewService {
     }
 
     public NewDto updateNewById(String id, @NotNull UpdateNewRequest updateNewRequest) {
-        New newObj = newRepository.findById(id).orElseThrow();
+        New newObj = findNewById(id);
         newObj.setTitle(updateNewRequest.getTitle());
         newObj.setDescription(updateNewRequest.getDescription());
         newObj.setPublished(updateNewRequest.getPublished());
