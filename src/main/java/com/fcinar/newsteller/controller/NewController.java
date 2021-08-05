@@ -6,6 +6,7 @@ import com.fcinar.newsteller.dto.UpdateNewRequest;
 import com.fcinar.newsteller.service.NewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
